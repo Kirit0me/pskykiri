@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Handlee } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
+import Navbar from "./components/Navbar";
 
 const handlee = Handlee({
   weight: "400",
@@ -24,7 +25,8 @@ export default function RootLayout({
         className={` ${handlee.className} antialiased`}
       >
         <AuthProvider>
-          {children}
+          <Navbar />
+          <main>{children}</main>
         </AuthProvider>
       </body>
     </html>
