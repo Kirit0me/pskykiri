@@ -1,76 +1,62 @@
 import { NextResponse } from "next/server";
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+import { connectMongo } from "@/lib/mongodb";
+import MbtiResult from "@/models/MbtiResult";
 
 export async function POST(req: Request) {
-  const supabase = createRouteHandlerClient({ cookies });
+  try {
+    await connectMongo();
 
-  const body = await req.json();
-  const { user_id, result } = body;
+    const body = await req.json();
+    const { user_id, result } = body;
 
-  if (!user_id || !result) {
-    return NextResponse.json({ error: "Missing user_id or result" }, { status: 400 });
-  }
-
-  const { data: existing, error: checkError } = await supabase
-    .from("mbti_results")
-    .select("*")
-    .eq("user_id", user_id)
-    .maybeSingle();
-
-  if (checkError) {
-    return NextResponse.json({ error: checkError.message }, { status: 500 });
-  }
-
-  if (existing) {
-    const { error: updateError } = await supabase
-      .from("mbti_results")
-      .update({
-        ...result,
-        updated_at: new Date().toISOString(),
-      })
-      .eq("user_id", user_id);
-
-    if (updateError) {
-      return NextResponse.json({ error: updateError.message }, { status: 500 });
+    if (!user_id || !result) {
+      return NextResponse.json(
+        { error: "Missing user_id or result" },
+        { status: 400 }
+      );
     }
-    return NextResponse.json({ message: "Result updated." });
-  } else {
-    const { error: insertError } = await supabase
-      .from("mbti_results")
-      .insert({
+
+    const existing = await MbtiResult.findOne({ user_id });
+
+    if (existing) {
+      existing.result = result;
+      existing.updated_at = new Date();
+      await existing.save();
+      return NextResponse.json({ message: "Result updated." });
+    } else {
+      await MbtiResult.create({
         user_id,
-        ...result,
+        result,
+        updated_at: new Date(),
       });
-
-    if (insertError) {
-      return NextResponse.json({ error: insertError.message }, { status: 500 });
+      return NextResponse.json({ message: "Result inserted." });
     }
-
-    return NextResponse.json({ message: "Result inserted." });
+  } catch (err) {
+    return NextResponse.json(
+      { error: (err as Error).message },
+      { status: 500 }
+    );
   }
 }
 
 export async function GET(req: Request) {
-  const supabase = createRouteHandlerClient({ cookies });
+  try {
+    await connectMongo();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    const url = new URL(req.url);
+    const user_id = url.searchParams.get("user_id");
 
-  if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    if (!user_id) {
+      return NextResponse.json({ error: "Missing user_id" }, { status: 400 });
+    }
+
+    const data = await MbtiResult.findOne({ user_id });
+
+    return NextResponse.json({ result: data });
+  } catch (err) {
+    return NextResponse.json(
+      { error: (err as Error).message },
+      { status: 500 }
+    );
   }
-
-  const { data, error } = await supabase
-    .from("mbti_results")
-    .select("*")
-    .eq("user_id", user.id)
-    .maybeSingle();
-
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
-  }
-
-  return NextResponse.json({ result: data });
 }

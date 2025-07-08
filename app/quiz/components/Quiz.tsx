@@ -22,12 +22,12 @@ export default function Quiz() {
     } else {
       // Last question → submit
       try {
-        const {
+       const {
           data: { user },
         } = await supabase.auth.getUser();
 
         if (user) {
-          // Logged-in user → Save to Supabase
+          // Logged-in user → Save to MongoDB
           const res = await fetch("/api/mbti", {
             method: "POST",
             headers: {
@@ -40,7 +40,7 @@ export default function Quiz() {
           });
 
           const json = await res.json();
-          console.log("Saved to Supabase:", json);
+          console.log("Saved to MongoDB:", json);
         } else {
           console.log("Guest user - saving locally.");
           localStorage.setItem("quizCompleted", "true");

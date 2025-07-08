@@ -17,7 +17,7 @@ export default function MCQQuestion({
           <button
             key={index}
             onClick={() => onAnswer(option.effect)}
-            className="bg-purple-600 hover:bg-purple-700 transition-colors text-white py-3 px-4 rounded font-semibold"
+            className="border border-purple-400 transition-colors text-white py-3 px-4 rounded font-semibold"
           >
             {option.text}
           </button>
