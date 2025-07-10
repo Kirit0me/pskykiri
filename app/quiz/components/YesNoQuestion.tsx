@@ -1,13 +1,13 @@
 "use client";
 
-import { YesNoQuestion as YesNoQuestionType } from "@/types/quiz";
+import { AnswerEffect, YesNoQuestion as YesNoQuestionType } from "@/types/quiz";
 
 export default function YesNoQuestion({
   question,
   onAnswer,
 }: {
   question: YesNoQuestionType;
-  onAnswer: (effect: any) => void;
+  onAnswer: (effect: AnswerEffect) => void;
 }) {
   return (
     <div className="bg-gray-900 p-8 rounded-lg shadow-lg text-center">

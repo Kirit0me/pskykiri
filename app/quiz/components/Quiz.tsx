@@ -1,33 +1,33 @@
 "use client";
 
+
 import { useState } from "react";
 import { questions } from "@/data/questions";
 import { applyEffect, initialCognitiveFunctions } from "@/utils/scoring";
 import QuestionRenderer from "./QuestionRenderer";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
+import type { AnswerEffect } from "@/types/quiz";
 
 export default function Quiz() {
   const [index, setIndex] = useState(0);
   const [functions, setFunctions] = useState(initialCognitiveFunctions);
   const router = useRouter();
 
-  const handleAnswer = async (effect: any) => {
+  const handleAnswer = async (effect: AnswerEffect) => {
     const updatedFunctions = applyEffect(functions, effect);
 
-    // If not last question → go to next
     if (index + 1 < questions.length) {
       setFunctions(updatedFunctions);
       setIndex(index + 1);
     } else {
-      // Last question → submit
+
       try {
        const {
           data: { user },
         } = await supabase.auth.getUser();
 
         if (user) {
-          // Logged-in user → Save to MongoDB
           const res = await fetch("/api/mbti", {
             method: "POST",
             headers: {

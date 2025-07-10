@@ -10,7 +10,6 @@ export default function Navbar() {
   const { user, loading, signOut } = useAuth();
 
   const fullName = user?.user_metadata?.full_name || user?.email || "User";
-  const avatarUrl = user?.user_metadata?.avatar_url;
 
   return (
     <nav className="bg-black/70 text-white backdrop-blur-sm fixed w-full z-50">
@@ -33,13 +32,6 @@ export default function Navbar() {
           {!loading && user ? (
             <div className="flex items-center space-x-3">
               <span className="text-pink-300">{fullName}</span>
-              {avatarUrl && (
-                <img
-                  src={avatarUrl}
-                  alt="Profile"
-                  className="w-8 h-8 rounded-full border border-pink-400"
-                />
-              )}
               <button
                 onClick={signOut}
                 className="bg-red-500 hover:bg-red-400 text-black px-3 py-1 rounded-full"
@@ -121,21 +113,14 @@ export default function Navbar() {
             </Link>
 
             {!loading && user ? (
-              <div className="flex flex-col mt-2">
+              <div className="flex flex-col mt-2 space-y-2">
                 <span className="text-pink-300">{fullName}</span>
-                {avatarUrl && (
-                  <img
-                    src={avatarUrl}
-                    alt="Profile"
-                    className="w-8 h-8 rounded-full border border-pink-400 mt-2"
-                  />
-                )}
                 <button
                   onClick={() => {
                     signOut();
                     setIsOpen(false);
                   }}
-                  className="mt-2 bg-red-500 hover:bg-red-400 text-black px-4 py-2 rounded-full"
+                  className="bg-red-500 hover:bg-red-400 text-black px-4 py-2 rounded-full"
                 >
                   Logout
                 </button>
@@ -157,7 +142,6 @@ export default function Navbar() {
                   Sign Up
                 </Link>
               </div>
-
             )}
           </motion.div>
         )}

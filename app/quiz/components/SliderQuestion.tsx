@@ -1,6 +1,6 @@
 "use client";
 
-import { SliderQuestion as SliderQuestionType } from "@/types/quiz";
+import { AnswerEffect, SliderQuestion as SliderQuestionType } from "@/types/quiz";
 import { CognitiveFunctions } from "@/types/cognitiveFunctions";
 import { useState } from "react";
 
@@ -34,7 +34,7 @@ export default function SliderQuestion({
   onAnswer,
 }: {
   question: SliderQuestionType;
-  onAnswer: (effect: any) => void;
+  onAnswer: (effect: AnswerEffect) => void;
 }) {
   const [value, setValue] = useState(50);
 

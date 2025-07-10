@@ -1,13 +1,13 @@
 "use client";
 
-import { MCQQuestion as MCQQuestionType } from "@/types/quiz";
+import { MCQQuestion as MCQQuestionType, AnswerEffect } from "@/types/quiz";
 
 export default function MCQQuestion({
   question,
   onAnswer,
 }: {
   question: MCQQuestionType;
-  onAnswer: (effect: any) => void;
+  onAnswer: (effect: AnswerEffect) => void;
 }) {
   return (
     <div className="bg-gray-900 p-8 rounded-lg shadow-lg text-center">

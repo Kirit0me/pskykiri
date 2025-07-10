@@ -1,7 +1,7 @@
 // app/quiz/components/QuestionRenderer.tsx
 "use client";
 
-import { Question } from "@/types/quiz";
+import { AnswerEffect, Question } from "@/types/quiz";
 import YesNoQuestion from "./YesNoQuestion";
 import MCQQuestion from "./MCQQuestion";
 import SliderQuestion from "./SliderQuestion";
@@ -11,7 +11,7 @@ export default function QuestionRenderer({
   onAnswer,
 }: {
   question: Question;
-  onAnswer: (effect: any) => void;
+  onAnswer: (effect: AnswerEffect) => void;
 }) {
   switch (question.type) {
     case "yesno":
