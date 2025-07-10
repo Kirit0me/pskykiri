@@ -53,20 +53,17 @@ export default function HeroSection() {
 
   return (
     <section className="relative w-full h-screen overflow-hidden">
-      {/* Yellow background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-yellow-300 to-yellow-100" />
+      <div className="absolute inset-0 bg-gradient-to-b from-yellow-300 to-red-400" />
 
-      {/* Black platform rising up */}
       <motion.div
         style={{ y: blackY }}
         className="
           absolute bottom-1/2 left-0 w-full h-[80%]
           bg-black
-          rounded-t-[30%]
+          rounded-t-[5%]
         "
       ></motion.div>
 
-      {/* Cat centered horizontally, on the black platform */}
       <motion.div
         style={{ x: catX }}
         className={`absolute left-1/2 translate-x-[-50%] bottom-[40%] ${catSize} h-auto`}
@@ -81,7 +78,6 @@ export default function HeroSection() {
         />
       </motion.div>
 
-      {/* Text appearing on scroll */}
       <motion.div
         style={{
           opacity: textOpacity,
@@ -89,12 +85,12 @@ export default function HeroSection() {
         }}
         className="absolute bottom-10 w-full text-center px-4"
       >
-        <h1 className="text-4xl md:text-6xl font-extrabold text-gray-100 mb-4">
+        {/* <h1 className="text-4xl md:text-6xl font-extrabold text-gray-100 mb-4">
           Welcome to the Big Brain MBTI Quiz!
         </h1>
         <p className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">
           Discover your cognitive functions and explore the quirky sides of your personality. Take the quiz below!
-        </p>
+        </p> */}
       </motion.div>
     </section>
   );

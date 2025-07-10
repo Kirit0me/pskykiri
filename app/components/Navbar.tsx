@@ -48,12 +48,20 @@ export default function Navbar() {
               </button>
             </div>
           ) : (
-            <Link
-              href="/auth/signin"
-              className="bg-pink-500 hover:bg-pink-400 text-black px-4 py-2 rounded-full"
-            >
-              Login
-            </Link>
+            <div className="flex space-x-3">
+              <Link
+                href="/auth/signin"
+                className="bg-pink-500 hover:bg-pink-400 text-black px-4 py-2 rounded-full"
+              >
+                Login
+              </Link>
+              <Link
+                href="/auth/signup"
+                className="bg-yellow-400 hover:bg-yellow-300 text-black px-4 py-2 rounded-full"
+              >
+                Sign Up
+              </Link>
+            </div>
           )}
         </div>
 
@@ -133,13 +141,23 @@ export default function Navbar() {
                 </button>
               </div>
             ) : (
-              <Link
-                href="/auth/signin"
-                className="mt-3 block bg-pink-500 hover:bg-pink-400 text-black px-4 py-2 rounded-full text-center"
-                onClick={() => setIsOpen(false)}
-              >
-                Login
-              </Link>
+              <div className="mt-3 flex flex-col space-y-2">
+                <Link
+                  href="/auth/signin"
+                  className="block bg-pink-500 hover:bg-pink-400 text-black px-4 py-2 rounded-full text-center"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/auth/signup"
+                  className="block bg-yellow-400 hover:bg-yellow-300 text-black px-4 py-2 rounded-full text-center"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Sign Up
+                </Link>
+              </div>
+
             )}
           </motion.div>
         )}

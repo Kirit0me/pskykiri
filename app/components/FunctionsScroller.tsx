@@ -37,7 +37,7 @@ export default function FunctionsScroller() {
         }}
       />
 
-      {/* Mobile line on left */}
+
       <motion.div
         className="md:hidden absolute left-6 top-0 w-1 bg-gradient-to-b from-green-400 via-pink-400 to-yellow-300"
         style={{
@@ -45,7 +45,7 @@ export default function FunctionsScroller() {
         }}
       />
 
-      {/* Content */}
+
       <div className="relative max-w-6xl mx-auto flex flex-col space-y-16 mt-10">
         {functions.map((fn, idx) => (
           <motion.div
@@ -60,7 +60,7 @@ export default function FunctionsScroller() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            {/* Connector for desktop */}
+
             <div className="hidden md:block w-1 h-24 bg-gradient-to-b from-transparent to-green-400" />
 
             <div
